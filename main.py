@@ -99,9 +99,9 @@ class DatabaseResolver(QObject):
         [os.remove(x) for x in imagePaths if ('/' + str(id) + ".") in x]
         self.getThreadSignal(9, "Requested Record removed completely. Kindly retrain.")
 
-    @Slot()
-    def export(self):
-        with open('export.csv', 'w', newline='') as handle:
+    @Slot(str)
+    def export(self, url):
+        with open(url[7:], 'w', newline='') as handle:
             writer = csv.writer(handle)
             writer.writerow(['id', 'rollno', 'name'])
             for i in range(model.rowCount()):
