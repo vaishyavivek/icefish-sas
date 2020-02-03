@@ -20,7 +20,7 @@ class FaceTest(QThread):
         self.inform.emit(7, "Testing...")
 
         # Initialize and start realtime video capture
-        cam = cv2.VideoCapture(0)
+        cam = cv2.VideoCapture(2)
         # set video width
         cam.set(3, 640)
         # set video height
@@ -61,8 +61,10 @@ class FaceTest(QThread):
                             query.bindValue(":id", id)
                             query.bindValue(":date", str(cDate))
                             query.exec_()
+                            self.inform.emit(8, "Attendance marked, ID = " + str(id))
+                        else:
+                            self.inform.emit(8, "Your attendance is already marked for today, ID = " + str(id))
 
-                        self.inform.emit(8, "Student Identified with ID = " + str(id))
                         i += 1
                         break
 #                    self.db.close()

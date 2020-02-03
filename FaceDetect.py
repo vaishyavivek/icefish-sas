@@ -13,7 +13,7 @@ class FaceDetect(QThread):
     def run(self):
         self.inform.emit(0, "Getting training dataset... |"
                         " Look at the camera for few seconds and say <b>CHEESE<b/>!")
-        cam = cv2.VideoCapture(0)
+        cam = cv2.VideoCapture(2)
         cam.set(3, 640)  # set video width
         cam.set(4, 480)  # set video height
 

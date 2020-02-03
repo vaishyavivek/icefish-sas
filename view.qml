@@ -5,7 +5,7 @@ import QtQuick 2.12
 ApplicationWindow {
     title: "Sankalp Face Detection"
     visible: true
-    width: 640
+    width: 1024
     height: 480
 
     AddNewDialogue{ id: addNewDialogue}
@@ -61,6 +61,13 @@ ApplicationWindow {
         }
     }
 
+//    Rectangle{
+//        z: -1
+////        opacity: 0.5
+//        color: "gainsboro"
+//        anchors.fill: parent
+//    }
+
     Row{
         anchors.fill: parent
         anchors.margins: 20
@@ -80,7 +87,9 @@ ApplicationWindow {
                 height: width*0.75
                 flat: true
                 focus: true
+                display: Quick2.AbstractButton.TextUnderIcon
                 icon.name: "media-record"
+                icon.color: "red"
                 text: "Test"
                 onClicked: dbRsl.startTest()
             }
@@ -90,9 +99,11 @@ ApplicationWindow {
                 width: parent.width
                 height: width*0.75
                 flat: true
-                focus: true
                 icon.name: "mail-send"
+                icon.color: "blue"
+                display: Quick2.AbstractButton.TextUnderIcon
                 text: "Send Mail"
+                onClicked: dbRsl.export()
             }
 
             Quick2.Button{
@@ -100,11 +111,12 @@ ApplicationWindow {
                 width: parent.width
                 height: width*0.75
                 flat: true
-                focus: true
                 icon.name: "system-shutdown"
+                display: Quick2.AbstractButton.TextUnderIcon
                 text: "Exit and Shutdown"
                 onClicked: Qt.quit()
             }
+
         }
 
         Column{
@@ -125,7 +137,7 @@ ApplicationWindow {
                     border.width: 2
                     border.color: "grey"
                     anchors.fill: parent
-                    radius: 2
+                    radius: 5
                 }
 
                 SequentialAnimation {
@@ -154,9 +166,11 @@ ApplicationWindow {
 
                         if(code === 0 || code === 7){
                             videoAnimated.running = true
+                            progress.opacity = 1
                         }
                         else if(code === 1 || code === 8){
                             videoAnimated.running = false
+                            progress.opacity = 0
                             image.source = ""
                         }
                         else if(code === 2){
@@ -169,24 +183,37 @@ ApplicationWindow {
                 }
             }
 
-
-            Quick2.TextArea{
-                id: status
-                width: parent.width
-                height: parent.height*0.4 - 20
-                padding: 20
-                text: qsTr("Welcome to Sankalp SAS")
-                font.family: "Arial Black"
-                font.pointSize: 10
-                readOnly: true
-                color: "white"
-            }
-
             Quick2.ProgressBar {
                 id: progress
-                visible: false
+                opacity: 0
                 width: parent.width
                 indeterminate: true
+            }
+
+            Rectangle{
+                id: statusParentRect
+                width: parent.width
+                height: parent.height*0.4 - 20
+                color: "transparent"
+
+                ScrollView{
+                    anchors.fill: parent
+                    Quick2.TextArea{
+                        id: status
+                        width: statusParentRect.width
+                        padding: 20
+                        text: qsTr("Welcome to Sankalp SAS\nClick on Test to mark your attendance")
+                        font.family: "Arial Black"
+                        font.pointSize: 10
+                        readOnly: true
+                        background: Rectangle{
+                            color: "transparent"
+                            border.color: "gray"
+                            border.width: 2
+                            radius: 5
+                        }
+                    }
+                }
             }
         }
 
@@ -201,8 +228,15 @@ ApplicationWindow {
                 width: parent.width
                 height: 50
                 font.pixelSize: 24
+                padding: 10
                 verticalAlignment: Text.AlignVCenter
                 text: "Student Count: " + sqlTableView.rowCount
+                background: Rectangle{
+                    color: "transparent"
+                    border.color: "gray"
+                    border.width: 2
+                    radius: 5
+                }
             }
 
             SqlTableView{

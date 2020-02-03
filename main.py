@@ -9,7 +9,7 @@ from FaceDetect import FaceDetect
 from FaceTrain import FaceTrain
 from FaceTest import FaceTest
 from QmlModel import SqlQueryModel
-
+import csv
 
 class DatabaseResolver(QObject):
 
@@ -42,7 +42,7 @@ class DatabaseResolver(QObject):
     @Slot(str, str, str, str, str, result=None)
     def registerStudent(self, id, rollno, name, stclass, section):
 
-#        self.db = QSqlDatabase.addDatabase("QSQLITE")
+        self.db = QSqlDatabase.addDatabase("QSQLITE")
         self.db.setDatabaseName("face.db")
         if self.db.open() is False:
             print("Failed opening db")
@@ -85,6 +85,10 @@ class DatabaseResolver(QObject):
 
     @Slot(str)
     def deregisterStudent(self, id):
+        self.db = QSqlDatabase.addDatabase("QSQLITE")
+        self.db.setDatabaseName("face.db")
+        if self.db.open() is False:
+            print("Failed opening db")
         query = QSqlQuery(self.db)
         query.prepare("DELETE FROM Student WHERE id = :id")
         query.bindValue(":id", int(id))
@@ -95,8 +99,18 @@ class DatabaseResolver(QObject):
         [os.remove(x) for x in imagePaths if ('/' + str(id) + ".") in x]
         self.getThreadSignal(9, "Requested Record removed completely. Kindly retrain.")
 
+    @Slot()
+    def export(self):
+        with open('export.csv', 'w', newline='') as handle:
+            writer = csv.writer(handle)
+            writer.writerow(['id', 'rollno', 'name'])
+            for i in range(model.rowCount()):
+                record = model.record(i)
+                writer.writerow([record.value(0), record.value(1), record.value(2)])
+
 
 model = SqlQueryModel()
+
 def updateSqlModel():
     db = QSqlDatabase.addDatabase("QSQLITE")
     db.setDatabaseName("face.db")
@@ -125,6 +139,7 @@ if __name__ == '__main__':
 
     updateSqlModel()
     ctx.setContextProperty("sqlModel", model)
+#    dbrsl.export()
 
     engine.load('view.qml')
 
