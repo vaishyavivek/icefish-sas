@@ -1,5 +1,5 @@
 from PySide2.QtCore import QThread, Signal
-import cv2
+import cv2, os
 
 
 class FaceDetect(QThread):
@@ -19,11 +19,15 @@ class FaceDetect(QThread):
 
         face_detector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
+        os.remove("temp0.jpg")
+        os.remove("temp1.jpg")
+
         count = 0
         n = 0
 
         while(True):
             ret, img = cam.read()
+            cv2.imwrite("temp" + str(n) + ".jpg", img)
             # img = cv2.flip(img, -1) # flip video image vertically
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             faces = face_detector.detectMultiScale(gray, 1.4, 8)
@@ -34,13 +38,12 @@ class FaceDetect(QThread):
 
                 # Save the captured image into the datasets folder
                 cv2.imwrite("dataset/" + str(self.id) + '.' + str(count) + ".jpg", gray[y:y+h,x:x+w])
-                cv2.imwrite("temp" + str(n) + ".jpg", img)
-                if n == 0:
-                    n = 1
-                else:
-                    n = 0
                 count += 1
 
+            if n == 0:
+                n = 1
+            else:
+                n = 0
             # Take 'sample' number of face sample and stop video
             if count >= self.sample:
                 break

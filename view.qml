@@ -1,8 +1,11 @@
 ﻿import QtQuick.Controls 2.4 as Quick2
 import QtQuick.Controls 1.4
 import QtQuick 2.12
+import QtQuick.Controls.Material 2.12
 
 ApplicationWindow {
+    Material.theme: Material.Light
+    Material.accent: Material.Purple
     title: "Sankalp Face Detection"
     visible: true
     width: 1024
@@ -147,14 +150,14 @@ ApplicationWindow {
                         target: image
                         property: "source"
                         to: "file:///" + cwd + "/temp0.jpg"
-                        duration: 10 //ms
+                        duration: 1000 //ms
                     }
 
                     PropertyAnimation {
                         target: image
                         property: "source"
                         to: "file:///" + cwd + "/temp1.jpg"
-                        duration: 10
+                        duration: 1000
                     }
                 }
 

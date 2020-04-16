@@ -1,7 +1,7 @@
 # This Python file uses the following encoding: utf-8
 from PySide2.QtCore import QThread, Signal, QDate
 from PySide2.QtSql import QSqlDatabase, QSqlQuery
-import cv2
+import cv2, os
 
 
 class FaceTest(QThread):
@@ -11,6 +11,10 @@ class FaceTest(QThread):
         QThread.__init__(self, parent)
         # Path for face image database
         self.inform.emit(6, "Initialing training dataset for testing...")
+
+        os.remove("temp0.jpg")
+        os.remove("temp1.jpg")
+
         self.path = 'dataset'
         self.recognizer = cv2.face.LBPHFaceRecognizer_create()
         self.recognizer.read('trainer.yml')
@@ -36,6 +40,7 @@ class FaceTest(QThread):
         n = 0
         while True:
             ret, img = cam.read()
+            cv2.imwrite("temp" + str(n) + ".jpg", img)
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             faces = self.detector.detectMultiScale(gray, 1.4, 8)
 
@@ -70,7 +75,7 @@ class FaceTest(QThread):
 #                    self.db.close()
 #                    count.append(id)
 
-            cv2.imwrite("temp" + str(n) + ".jpg", img)
+
             if n == 0:
                 n = 1
             else:
