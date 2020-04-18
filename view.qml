@@ -1,30 +1,29 @@
-﻿import QtQuick.Controls 2.4 as Quick2
-import QtQuick.Controls 1.4
-import QtQuick 2.12
+﻿import QtQuick 2.9
+import QtQuick.Controls 2.9
 import QtQuick.Controls.Material 2.12
 
 ApplicationWindow {
-    Material.theme: Material.Light
-    Material.accent: Material.Purple
-    title: "Sankalp Face Detection"
-    visible: true
+    title: "Icefish Smart Attendance System"
     width: 1024
     height: 480
+    visible: true
+    Material.theme: Material.Light
+    Material.accent: Material.Purple
 
     AddNewDialogue{ id: addNewDialogue}
     DeleteExistingDialogue{ id: deleteExistingDialogue}
 
     menuBar: MenuBar {
         Menu {
-            title: "User"
+            title: qsTr("&User")
 
-            MenuItem {
-                text: "Test"
+            Action {
+                text: qsTr("&Test")
                 shortcut: StandardKey.Redo
                 onTriggered: dbRsl.startTest()
             }
 
-            MenuItem {
+            Action {
                 text: "Exit"
                 shortcut: StandardKey.Quit
                 onTriggered: Qt.quit()
@@ -32,25 +31,25 @@ ApplicationWindow {
         }
 
         Menu {
-            title: "Administrator"
-            MenuItem {
+            title: qsTr("&Administrator")
+            Action {
                 text: "Add New"
                 shortcut: StandardKey.New
                 onTriggered: addNewDialogue.open()
             }
 
-            MenuItem {
+            Action {
                 text: "Delete Existing"
                 shortcut: StandardKey.Delete
                 onTriggered: deleteExistingDialogue.open()
             }
 
-            MenuItem {
+            Action {
                 text: "Modify Existing"
                 shortcut: StandardKey.Replace
             }
 
-            MenuItem {
+            Action {
                 text: "Train"
                 shortcut: StandardKey.Print
                 onTriggered: dbRsl.startTraining()
@@ -58,18 +57,12 @@ ApplicationWindow {
         }
 
         Menu {
-            title: "Help"
-            MenuItem { text: "Licenses" }
-            MenuItem { text: "About" }
+            title: qsTr("&Help")
+            Action { text: "Licenses" }
+            Action { text: "About" }
         }
     }
 
-//    Rectangle{
-//        z: -1
-////        opacity: 0.5
-//        color: "gainsboro"
-//        anchors.fill: parent
-//    }
 
     Row{
         anchors.fill: parent
@@ -84,38 +77,38 @@ ApplicationWindow {
             anchors.topMargin: 50
             anchors.margins: 10
 
-            Quick2.Button{
+            Button{
                 id: testBtn
                 width: parent.width
                 height: width*0.75
                 flat: true
                 focus: true
-                display: Quick2.AbstractButton.TextUnderIcon
+                display: AbstractButton.TextUnderIcon
                 icon.name: "media-record"
                 icon.color: "red"
                 text: "Test"
                 onClicked: dbRsl.startTest()
             }
 
-            Quick2.Button{
+            Button{
                 id: mailBtn
                 width: parent.width
                 height: width*0.75
                 flat: true
                 icon.name: "mail-send"
                 icon.color: "blue"
-                display: Quick2.AbstractButton.TextUnderIcon
+                display: AbstractButton.TextUnderIcon
                 text: "Send Mail"
                 onClicked: dbRsl.export()
             }
 
-            Quick2.Button{
+            Button{
                 id: exitBtn
                 width: parent.width
                 height: width*0.75
                 flat: true
                 icon.name: "system-shutdown"
-                display: Quick2.AbstractButton.TextUnderIcon
+                display: AbstractButton.TextUnderIcon
                 text: "Exit and Shutdown"
                 onClicked: Qt.quit()
             }
@@ -150,14 +143,14 @@ ApplicationWindow {
                         target: image
                         property: "source"
                         to: "file:///" + cwd + "/temp0.jpg"
-                        duration: 1000 //ms
+                        duration: 200 //ms
                     }
 
                     PropertyAnimation {
                         target: image
                         property: "source"
                         to: "file:///" + cwd + "/temp1.jpg"
-                        duration: 1000
+                        duration: 200
                     }
                 }
 
@@ -186,7 +179,7 @@ ApplicationWindow {
                 }
             }
 
-            Quick2.ProgressBar {
+            ProgressBar {
                 id: progress
                 opacity: 0
                 width: parent.width
@@ -198,10 +191,13 @@ ApplicationWindow {
                 width: parent.width
                 height: parent.height*0.4 - 20
                 color: "transparent"
+                clip: true
 
                 ScrollView{
-                    anchors.fill: parent
-                    Quick2.TextArea{
+                    width: parent.width
+//                    height: parent.height
+                    clip: true
+                    TextArea{
                         id: status
                         width: statusParentRect.width
                         padding: 20
@@ -226,7 +222,7 @@ ApplicationWindow {
             height: parent.height
             spacing: 10
 
-            Quick2.TextArea {
+            TextArea {
                 id: stCount
                 width: parent.width
                 height: 50

@@ -1,4 +1,10 @@
 *.user*
 build/
 dist/
+__pycache__/
 Icefish_SAS.egg-info/
+dataset/
+temp0.jpg
+temp1.jpg
+trainer.yml
+face.db

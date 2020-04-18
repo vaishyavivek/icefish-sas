@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.11.1, 2020-04-08T19:23:25. -->
+<!-- Written by QtCreator 4.11.1, 2020-04-18T20:56:18. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
-  <value type="QByteArray">{e1b17ffe-1371-485c-b819-b0d2153b556c}</value>
+  <value type="QByteArray">{8f1a04a9-e81d-4772-8de4-747756559b4e}</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -62,12 +62,12 @@
  <data>
   <variable>ProjectExplorer.Project.Target.0</variable>
   <valuemap type="QVariantMap">
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Desktop</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Desktop</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">{ef791399-4a77-455f-90cd-36ffd0636a7c}</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Desktop Qt 5.14.2 GCC 64bit</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Desktop Qt 5.14.2 GCC 64bit</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">qt.qt5.5142.gcc_64_kit</value>
    <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">-1</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
-   <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">3</value>
+   <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.BuildConfigurationCount">0</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.DeployConfiguration.0">
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
@@ -141,11 +141,11 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">FaceTrain</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/eobardthawne/Qt/sankalp-sas/FaceTrain.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/eobardthawne/Qt/sankalp-sas/FaceTrain.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter">{92f6f810-2e31-48cd-914d-3574a22abad5}</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/eobardthawne/Qt/sankalp-sas/FaceTrain.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">main</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/eobardthawne/Qt/icefish-sas/main.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/eobardthawne/Qt/icefish-sas/main.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter">{335b256e-3c6f-457d-b5a7-77426b092847}</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/eobardthawne/Qt/icefish-sas/main.py</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -155,7 +155,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/eobardthawne/Qt/sankalp-sas</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/eobardthawne/Qt/icefish-sas</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.1">
     <value type="QString" key="Analyzer.Perf.CallgraphMode">dwarf</value>
@@ -217,11 +217,11 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">QmlModel</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/eobardthawne/Qt/sankalp-sas/QmlModel.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/eobardthawne/Qt/sankalp-sas/QmlModel.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">FaceDetect</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/eobardthawne/Qt/icefish-sas/FaceDetect.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/eobardthawne/Qt/icefish-sas/FaceDetect.py</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/eobardthawne/Qt/sankalp-sas/QmlModel.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/eobardthawne/Qt/icefish-sas/FaceDetect.py</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -293,11 +293,11 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">FaceDetect</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/eobardthawne/Qt/sankalp-sas/FaceDetect.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/eobardthawne/Qt/sankalp-sas/FaceDetect.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">QmlModel</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/eobardthawne/Qt/icefish-sas/QmlModel.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/eobardthawne/Qt/icefish-sas/QmlModel.py</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/eobardthawne/Qt/sankalp-sas/FaceDetect.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/eobardthawne/Qt/icefish-sas/QmlModel.py</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -369,11 +369,11 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">main</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/eobardthawne/Qt/sankalp-sas/main.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/eobardthawne/Qt/sankalp-sas/main.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter">{92f6f810-2e31-48cd-914d-3574a22abad5}</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/eobardthawne/Qt/sankalp-sas/main.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">FaceTrain</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/eobardthawne/Qt/icefish-sas/FaceTrain.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/eobardthawne/Qt/icefish-sas/FaceTrain.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/eobardthawne/Qt/icefish-sas/FaceTrain.py</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -383,7 +383,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/eobardthawne/Qt/sankalp-sas</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default"></value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.4">
     <value type="QString" key="Analyzer.Perf.CallgraphMode">dwarf</value>
@@ -446,10 +446,10 @@
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">FaceTest</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/eobardthawne/Qt/sankalp-sas/FaceTest.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/eobardthawne/Qt/sankalp-sas/FaceTest.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/eobardthawne/Qt/icefish-sas/FaceTest.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/eobardthawne/Qt/icefish-sas/FaceTest.py</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/eobardthawne/Qt/sankalp-sas/FaceTest.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/eobardthawne/Qt/icefish-sas/FaceTest.py</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>

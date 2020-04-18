@@ -12,8 +12,9 @@ class FaceTest(QThread):
         # Path for face image database
         self.inform.emit(6, "Initialing training dataset for testing...")
 
-        os.remove("temp0.jpg")
-        os.remove("temp1.jpg")
+        if os.access("temp0.jpg", os.R_OK):
+            os.remove("temp0.jpg")
+            os.remove("temp1.jpg")
 
         self.path = 'dataset'
         self.recognizer = cv2.face.LBPHFaceRecognizer_create()
@@ -24,7 +25,7 @@ class FaceTest(QThread):
         self.inform.emit(7, "Testing...")
 
         # Initialize and start realtime video capture
-        cam = cv2.VideoCapture(2)
+        cam = cv2.VideoCapture(0)
         # set video width
         cam.set(3, 640)
         # set video height

@@ -1,7 +1,6 @@
 from PySide2.QtCore import QThread, Signal
 import cv2, os
 
-
 class FaceDetect(QThread):
     inform = Signal(int, str)
 
@@ -13,14 +12,15 @@ class FaceDetect(QThread):
     def run(self):
         self.inform.emit(0, "Getting training dataset... |"
                         " Look at the camera for few seconds and say <b>CHEESE<b/>!")
-        cam = cv2.VideoCapture(2)
+        cam = cv2.VideoCapture(0)
         cam.set(3, 640)  # set video width
         cam.set(4, 480)  # set video height
 
         face_detector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-        os.remove("temp0.jpg")
-        os.remove("temp1.jpg")
+        if os.access("temp0.jpg", os.R_OK):
+            os.remove("temp0.jpg")
+            os.remove("temp1.jpg")
 
         count = 0
         n = 0
@@ -33,6 +33,7 @@ class FaceDetect(QThread):
             faces = face_detector.detectMultiScale(gray, 1.4, 8)
 
             for (x, y, w, h) in faces:
+                print("something")
                 cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
                 count += 1
 
