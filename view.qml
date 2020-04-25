@@ -1,17 +1,21 @@
-﻿import QtQuick 2.9
-import QtQuick.Controls 2.9
+﻿import QtQuick 2.14
+import QtQuick.Controls 2.14
+import QtQuick.Window 2.14
 import QtQuick.Controls.Material 2.12
 
 ApplicationWindow {
     title: "Icefish Smart Attendance System"
     width: 1024
-    height: 480
+    height: 600
     visible: true
     Material.theme: Material.Light
     Material.accent: Material.Purple
 
-    AddNewDialogue{ id: addNewDialogue}
-    DeleteExistingDialogue{ id: deleteExistingDialogue}
+    AddNewDialog{ id: addNewDialogue}
+    DeleteExistingDialog{ id: deleteExistingDialogue}
+
+    PinDialog { id: pinDialog}
+    property bool lock: false
 
     menuBar: MenuBar {
         Menu {
@@ -67,7 +71,7 @@ ApplicationWindow {
     Row{
         anchors.fill: parent
         anchors.margins: 20
-        spacing: 20
+        spacing: 25
 
         Column{
             id: sidebar
@@ -77,24 +81,73 @@ ApplicationWindow {
             anchors.topMargin: 50
             anchors.margins: 10
 
+            Rectangle {
+                width: parent.width
+                height: width*0.5
+                color: "transparent"
+
+                Timer{
+                    interval: 1000
+                    running: true
+                    repeat: true
+                    onTriggered: {
+                        var d = new Date();
+                        time.text = d.getHours().toString() + " : " + d.getMinutes().toString() + " : " + d.getSeconds().toString()
+                    }
+                }
+
+                Text {
+                    id: time
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.fill: parent
+                    font.pixelSize: 24
+                }
+            }
+
             Button{
-                id: testBtn
+                id: startBtn
                 width: parent.width
                 height: width*0.75
-                flat: true
+//                flat: true
                 focus: true
                 display: AbstractButton.TextUnderIcon
                 icon.name: "media-record"
                 icon.color: "red"
-                text: "Test"
-                onClicked: dbRsl.startTest()
+                text: "Start"
+                onClicked: dbRsl.startTest(lectureCount.value)
+            }
+
+            SpinBox{
+                id: lectureCount
+                width: parent.width
+                height: width*0.5
+                from: 1
+                to: 10
+            }
+
+            Button{
+                id: lockBtn
+                width: parent.width
+                height: width*0.75
+//                flat: true
+                display: AbstractButton.TextUnderIcon
+                icon.name: "lock"
+                icon.color: "red"
+                text: lock ? "UnLock" : "Lock"
+                onClicked: {
+                    if(lock)
+                        pinDialog.open()
+                    else
+                        lock = true
+                }
             }
 
             Button{
                 id: mailBtn
                 width: parent.width
                 height: width*0.75
-                flat: true
+//                flat: true
                 icon.name: "mail-send"
                 icon.color: "blue"
                 display: AbstractButton.TextUnderIcon
@@ -106,10 +159,10 @@ ApplicationWindow {
                 id: exitBtn
                 width: parent.width
                 height: width*0.75
-                flat: true
+//                flat: true
                 icon.name: "system-shutdown"
                 display: AbstractButton.TextUnderIcon
-                text: "Exit and Shutdown"
+                text: "Exit and \nShutdown"
                 onClicked: Qt.quit()
             }
 
@@ -201,9 +254,10 @@ ApplicationWindow {
                         id: status
                         width: statusParentRect.width
                         padding: 20
-                        text: qsTr("Welcome to Sankalp SAS\nClick on Test to mark your attendance")
+                        text: qsTr("<p>Welcome to <b>Icefish SAS</b></p><p>Click on Start to begin attendance tracking.</p>")
+                        textFormat: TextEdit.RichText
                         font.family: "Arial Black"
-                        font.pointSize: 10
+                        font.pointSize: 8
                         readOnly: true
                         background: Rectangle{
                             color: "transparent"
@@ -220,21 +274,104 @@ ApplicationWindow {
             id: indicatorBar
             width: parent.width*0.5 - 40
             height: parent.height
-            spacing: 10
+            spacing: 20
 
-            TextArea {
-                id: stCount
+            Rectangle {
                 width: parent.width
-                height: 50
-                font.pixelSize: 24
-                padding: 10
-                verticalAlignment: Text.AlignVCenter
-                text: "Student Count: " + sqlTableView.rowCount
-                background: Rectangle{
-                    color: "transparent"
-                    border.color: "gray"
-                    border.width: 2
-                    radius: 5
+                height: width*0.2
+                color: "transparent"
+
+                Row {
+                    anchors.fill: parent
+                    spacing: 25
+
+                    Rectangle {
+                        id: ostRect
+                        height: parent.height
+                        width: height*1.2
+                        color: "transparent"
+                        border.color: "gray"
+                        border.width: 2
+                        radius: 5
+
+                        Column {
+                            anchors.fill: parent
+                            anchors.margins: 5
+                            spacing: 10
+                            Text {
+                                padding: 5
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                font.pixelSize: 16
+                                text: qsTr("Initial Count")
+                            }
+                            Text {
+                                padding: 5
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                font.pixelSize: 40
+                                font.bold: true
+                                text: dbRsl.oCount
+                            }
+                        }
+                    }
+
+                    Rectangle {
+                        id: istRect
+                        height: parent.height
+                        width: height*1.2
+                        color: "transparent"
+                        border.color: "gray"
+                        border.width: 2
+                        radius: 5
+
+                        Column {
+                            anchors.fill: parent
+                            anchors.margins: 5
+                            spacing: 10
+                            Text {
+                                padding: 5
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                font.pixelSize: 16
+                                text: qsTr("Current Count")
+                            }
+                            Text {
+                                padding: 5
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                font.pixelSize: 40
+                                font.bold: true
+                                text: sqlTableView.rowCount
+                            }
+                        }
+                    }
+
+                    Rectangle {
+                        width: parent.width - ostRect.width - istRect.width - 50
+                        height: parent.height
+                        color: "transparent"
+                        border.color: "gray"
+                        border.width: 2
+                        radius: 5
+
+                        Column {
+                            anchors.fill: parent
+                            anchors.margins: 10
+                            spacing: 10
+
+                            Text {
+                                padding: 5
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                font.pixelSize: 16
+                                text: qsTr("Student Count for lecture")
+                            }
+
+                            ComboBox {
+                                width: parent.width*0.8
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                model: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+                                currentIndex: lectureCount.value - 1
+                                onCurrentIndexChanged: dbRsl.updateModel(currentIndex + 1)
+                            }
+                        }
+                    }
                 }
             }
 
@@ -242,5 +379,10 @@ ApplicationWindow {
                 id: sqlTableView
             }
         }
+    }
+
+    Component.onCompleted: {
+        setX(Screen.width / 2 - width / 2);
+        setY(Screen.height / 2 - height / 2);
     }
 }

@@ -7,4 +7,5 @@ dataset/
 temp0.jpg
 temp1.jpg
 trainer.yml
-face.db
+# face.db
+# passwd

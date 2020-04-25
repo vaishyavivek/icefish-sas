@@ -1,3 +1,3 @@
 {
-    "files": ["DeleteExistingDialogue.qml","view.qml","main.py","FaceTrain.py","AddNewDialogue.qml","SqlTableView.qml","FaceDetect.py","QmlModel.py","FaceTest.py"]
+    "files": ["FaceTrain.py","AskPinFrame.qml","main.py","QmlModel.py","FaceDetect.py","SqlTableView.qml","PinWindow.qml","DeleteExistingDialog.qml","view.qml","PinDialog.qml","FaceTest.py","AddNewDialog.qml"]
 }

@@ -20,6 +20,7 @@ class FaceDetect(QThread):
 
         if os.access("temp0.jpg", os.R_OK):
             os.remove("temp0.jpg")
+        if os.access("temp1.jpg", os.R_OK):
             os.remove("temp1.jpg")
 
         count = 0

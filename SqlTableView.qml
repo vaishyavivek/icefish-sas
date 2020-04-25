@@ -4,7 +4,7 @@ import QtQuick.Controls 1.4
 TableView {
    id: tblView
    width: parent.width
-   height: parent.height - 70
+   height: parent.height - 120
    model: sqlModel
 
    Component{

@@ -7,13 +7,15 @@ import cv2, os
 class FaceTest(QThread):
     inform = Signal(int, str)
 
-    def __init__(self, parent=None):
+    def __init__(self, lectureNo, parent=None):
         QThread.__init__(self, parent)
         # Path for face image database
         self.inform.emit(6, "Initialing training dataset for testing...")
+        self.lectureNo = lectureNo
 
         if os.access("temp0.jpg", os.R_OK):
             os.remove("temp0.jpg")
+        if os.access("temp1.jpg", os.R_OK):
             os.remove("temp1.jpg")
 
         self.path = 'dataset'
@@ -58,18 +60,19 @@ class FaceTest(QThread):
                     else:
                         cDate = QDate().currentDate().toString('yyyy-MM-dd')
 #                        query = QSqlQuery(self.db)
-                        qstr = "SELECT * FROM Attendance WHERE id = " + str(id) + " AND date = '" + cDate + "'"
+                        qstr = "SELECT * FROM Attendance WHERE id = " + str(id) + " AND date = '" + cDate + "' AND lecture_no = " + str(self.lectureNo)
                         query = QSqlQuery(qstr)
                         query.next()
                         if not query.value(0):
-                            query.prepare("INSERT INTO Attendance (id, date, present)"
-                                                "Values (:id, :date, 1)")
+                            query.prepare("INSERT INTO Attendance (id, date, lecture_no)"
+                                                "Values (:id, :date, :lectureNo)")
                             query.bindValue(":id", id)
                             query.bindValue(":date", str(cDate))
+                            query.bindValue(":lectureNo", str(self.lectureNo))
                             query.exec_()
-                            self.inform.emit(8, "Attendance marked, ID = " + str(id))
+                            self.inform.emit(8, "Attendance marked for ID = " + str(id) + " for Lecture = " + str(self.lectureNo))
                         else:
-                            self.inform.emit(8, "Your attendance is already marked for today, ID = " + str(id))
+                            self.inform.emit(8, "Attendance for ID = " + str(id) +" for Lecture = " + str(self.lectureNo) + " is already marked.")
 
                         i += 1
                         break

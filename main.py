@@ -1,7 +1,7 @@
 import sys
 import os
 from PySide2.QtWidgets import QApplication
-from PySide2.QtCore import Qt, QCoreApplication, QObject, Slot, Signal
+from PySide2.QtCore import Qt, QCoreApplication, QObject, Slot, Signal, Property, QSettings
 from PySide2.QtQml import QQmlApplicationEngine
 from PySide2.QtSql import QSqlDatabase, QSqlQuery, QSqlQueryModel
 
@@ -11,10 +11,13 @@ from FaceTest import FaceTest
 from QmlModel import SqlQueryModel
 import csv
 
+model = SqlQueryModel()
+
 class DatabaseResolver(QObject):
 
     def __init__(self):
         super().__init__()
+        self.ocount = 0
 
     # this signal is emitted to inform QML of changes received from Thread
     threadSignalReceived = Signal()
@@ -30,8 +33,31 @@ class DatabaseResolver(QObject):
     @Slot(result=int)
     def getStatusCode(self):
         if self.statusCode == 8:
-            updateSqlModel()
+            query = QSqlQuery("SELECT COUNT(*) FROM Student JOIN "
+                            "Attendance ON Student.id = Attendance.id "
+                            "AND Attendance.date = (SELECT date('now')) "
+                            "AND Attendance.lecture_no = 1")
+            query.next()
+            self.ocount = query.value(0)
+            self.oCount_changed.emit()
+
         return self.statusCode
+
+    # count for lecture 1 can be obtained here
+    def _oCount(self):
+        return self.ocount
+
+    @Signal
+    def oCount_changed(self):
+        pass
+
+    oCount = Property(int, _oCount, notify=oCount_changed)
+    # ends count for lecture 1
+
+    @Slot(int)
+    def updateModel(self, lecture_no):
+        updateSqlModel(lecture_no)
+
 
     # to display in status bar
     @Slot(result=str)
@@ -73,9 +99,9 @@ class DatabaseResolver(QObject):
         self.ft.inform.connect(self.getThreadSignal)
         self.ft.start()
 
-    @Slot()
-    def startTest(self):
-        self.ft = FaceTest()
+    @Slot(int)
+    def startTest(self, lc):
+        self.ft = FaceTest(lc)
         self.ft.inform.connect(self.getThreadSignal)
         self.ft.start()
 
@@ -109,17 +135,32 @@ class DatabaseResolver(QObject):
                 writer.writerow([record.value(0), record.value(1), record.value(2)])
 
 
-model = SqlQueryModel()
-
-def updateSqlModel():
+def updateSqlModel(lecture_no):
     db = QSqlDatabase.addDatabase("QSQLITE")
     db.setDatabaseName("face.db")
     if db.open() is False:
         print("Failed opening db")
-    model.setQuery("SELECT Student.id, rollno, name FROM Student "
-                "JOIN "
-                "Attendance ON Student.id = Attendance.id "
-                "AND Attendance.date = (SELECT date('now'))")
+
+    query = "SELECT Student.id, rollno, name FROM Student JOIN "\
+                "Attendance ON Student.id = Attendance.id "\
+                "AND Attendance.date = (SELECT date('now')) "
+
+    if lecture_no != 0:
+        query += " AND Attendance.lecture_no = " + str(lecture_no)
+
+    model.setQuery(query)
+
+
+class PasswdManager(QObject):
+
+    def __init__(self):
+        super().__init__()
+        passwd = os.open("passwd", os.O_RDONLY)
+        self.passwd = os.read(passwd, 6).decode("utf-8")
+
+    @Slot(str, result=bool)
+    def checkPasswd(self, passwd):
+        return self.passwd == passwd
 
 
 if __name__ == '__main__':
@@ -127,18 +168,27 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
 
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
+    QApplication.setStyle("material")
+    QApplication.setOrganizationName("Icefish")
+    QApplication.setOrganizationDomain("icefish.tech")
+    QApplication.setApplicationName("Icefish SAS")
     QCoreApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
 
     engine = QQmlApplicationEngine()
     ctx = engine.rootContext()
+
+    pwmng = PasswdManager()
+    ctx.setContextProperty("pwd", pwmng)
 
     ctx.setContextProperty("cwd", os.getcwd())
 
     dbrsl = DatabaseResolver()
     ctx.setContextProperty("dbRsl", dbrsl)
 
-    updateSqlModel()
+    updateSqlModel(0)
     ctx.setContextProperty("sqlModel", model)
+#    ctx.setContextProperty("oCount", oCount)
+
 #    dbrsl.export()
 
     engine.load('view.qml')
