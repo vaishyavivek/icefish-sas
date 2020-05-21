@@ -15,14 +15,18 @@ Rectangle {
         spacing: 20
         anchors.margins: 20
 
-        Text {
+        TextField {
             id: pin
             width: parent.width
             height: 50
             padding: 10
-            font.pixelSize: 30
+            focus: true
+            echoMode: TextInput.Password
+            inputMethodHints: Qt.ImhSensitiveData | Qt.ImhDigitsOnly
+            font.pixelSize: 25
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
+            onAccepted: askPinFrame.accepted()
 
             Button {
                 anchors.right: parent.right

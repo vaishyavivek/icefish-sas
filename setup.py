@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
     setuptools.setup(
         name='Icefish SAS',
-        version='1.4',
+        version='1.5',
         scripts=['init'],
         author="Team Icefish",
         author_email="icefish@mail.com",

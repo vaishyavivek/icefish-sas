@@ -191,6 +191,6 @@ if __name__ == '__main__':
 
 #    dbrsl.export()
 
-    engine.load('view.qml')
+    engine.load('PinWindow.qml')
 
     sys.exit(app.exec_())

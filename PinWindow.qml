@@ -8,6 +8,8 @@ ApplicationWindow {
     visible: true
     width: 210
     height: 340
+    x: Screen.width / 2 - width / 2
+    y: Screen.height / 2 - height / 2
 
     Loader {
         id: mainLoader

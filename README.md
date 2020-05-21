@@ -7,6 +7,9 @@ The goal of the project is to allow contact less (no fingerprint) attendance thr
 
 
 ## Change Log
+* Version 1.5.1
+    1. Fixed Password Window
+
 * Version 1.5
     1. Pin Protection
     2. Ability to lock State of the app
